@@ -6,29 +6,9 @@ const { subirArchivo, tienePermisosProducto } = require("../helpers");
 const Productos = models.productos;
 const Categorias = models.categorias;
 
-// exports.create = async (req, res = response) => {
-//   const { usuario, estado, disponible, ...data } = req.body;
-//   data.usuario = req.usuario.id;
-//   data.nombre = data.nombre.toLowerCase();
-//   const productoDB = await Productos.findOne({ nombre: data.nombre });
-//   if (productoDB) {
-//     return res.status(400).json({
-//       message: `El producto ${productoDB.nombre} ya existe`
-//     });
-//   }
-//   try {
-//     const producto = new Productos(data);
-//     await producto.save();
-//     res.status(201).json(producto);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: error.message });
-//   }
-// };
-
 exports.create_foto = async (req, res = response) => {
   const { usuario, estado, disponible, ...data } = req.body;
-  data.usuario = req.usuario.id;
+  data.usuario = req.uid;
   data.nombre = data.nombre.toLowerCase();
   const productoDB = await Productos.findOne({ nombre: data.nombre });
   if (productoDB) {
@@ -86,9 +66,9 @@ exports.findOne = async (req = request, res = response) => {
 exports.update = async (req = request, res = response) => {
   const { estado, usuario, ...data } = req.body;
   const { id } = req.params;
-  data.usuario = req.usuario.id;
+  data.usuario = req.uid;
 
-  const permiso = await tienePermisosProducto(id, req.usuario);
+  const permiso = await tienePermisosProducto(id, req.uid);
   if (!permiso) {
     return res.status(500).json({ menssage: 'No tiene permisos para realizar el cambio' });
   }
@@ -134,7 +114,7 @@ exports.update = async (req = request, res = response) => {
 
 exports.destroy = async (req = request, res = response) => {
   const { id } = req.params;
-  const permiso = await tienePermisosProducto(id, req.usuario);
+  const permiso = await tienePermisosProducto(id, req.uid);
   if (!permiso) {
     return res.status(500).json({ menssage: 'No tiene permisos para realizar el cambio' });
   }

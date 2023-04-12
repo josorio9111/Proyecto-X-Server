@@ -48,10 +48,9 @@ const coleccionesPermitidas = (c, permitidas = []) => {
 };
 
 
-const tienePermisosProducto = async (idProducto, usuario) => {
-  const { role, id } = usuario;
+const tienePermisosProducto = async (idProducto, uid) => {
   const producto = await Productos.findById(idProducto);
-  if (producto.usuario.toString() === id || role === 'ADMIN_ROLE') {
+  if (producto.usuario.toString() === uid) {
     return true;
   } else {
     return false;

@@ -11,7 +11,6 @@ models.url = dbConfig.url;
 models.mongoose = mongoose;
 models.categorias = require("./categorias.js")(mongoose); // Models
 models.productos = require("./productos.js")(mongoose); // Models
-models.usuarios = require("./usuarios")(mongoose); // Models
 models.roles = require("./roles.js")(mongoose); // Models
 crearRoles(models.roles);
 

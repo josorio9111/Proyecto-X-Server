@@ -41,8 +41,8 @@ exports.findAll = async (req, res = response) => {
     ]);
     res.status(200).json({ total, categorias });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message, });
+    console.log(error);
   }
 };
 
@@ -55,8 +55,8 @@ exports.findOne = async (req, res = response) => {
     );
     res.status(200).json(categoriaDB);
   } catch (error) {
-    console.log(eror);
     res.status(500).json({ message: error.message, });
+    console.log(eror);
   }
 };
 
